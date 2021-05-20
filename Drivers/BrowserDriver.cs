@@ -15,10 +15,7 @@ namespace AmazonLandingPageOperations.Specs.Drivers
         }
         public IWebDriver Current => _currentWebDriverLazy.Value;
 
-        /// <summary>
-        /// Creates the Selenium web driver (opens a browser)
-        /// </summary>
-        /// <returns></returns>
+       
         private IWebDriver CreateWebDriver()
         {
             //We use the Chrome browser
@@ -26,6 +23,7 @@ namespace AmazonLandingPageOperations.Specs.Drivers
 
             var chromeOptions = new ChromeOptions();
 
+            chromeOptions.AddArguments("--incognito");
             var chromeDriver = new ChromeDriver(chromeDriverService, chromeOptions);
 
             return chromeDriver;

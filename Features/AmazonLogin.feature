@@ -4,8 +4,7 @@ Feature: Login
 
 Scenario Outline: Check login text without any email
 Given An user navigate to browser '<url>'
-And hoverover the SignInOption 
-And click on the SignIn button
+And hover over the SignInOption and click on the SignIn button
 When Clicked on the Continue without any data
 Then error message should show '<Expected result>'
 Examples: 

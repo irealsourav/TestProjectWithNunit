@@ -110,15 +110,12 @@ this.ScenarioInitialize(scenarioInfo);
 testRunner.Given(string.Format("An user navigate to browser \'{0}\'", url), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 7
-testRunner.And("hoverover the SignInOption", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+testRunner.And("hover over the SignInOption and click on the SignIn button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 8
-testRunner.And("click on the SignIn button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 9
 testRunner.When("Clicked on the Continue without any data", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 10
+#line 9
 testRunner.Then(string.Format("error message should show \'{0}\'", expectedResult), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

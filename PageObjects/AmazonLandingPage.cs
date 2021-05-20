@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
+using TestProjectWithNunit.PageObjects;
 
 namespace AmazonLandingPageOperations.Specs.PageObjects
 {
@@ -13,7 +14,7 @@ namespace AmazonLandingPageOperations.Specs.PageObjects
        
         //The Selenium web driver to automate the browser
         private readonly IWebDriver _webDriver;
-        private readonly Actions builder;
+        private readonly Actions action;
 
         //The default wait time in seconds for wait.Until
         public const int DefaultWaitInSeconds = 5;
@@ -21,38 +22,26 @@ namespace AmazonLandingPageOperations.Specs.PageObjects
         public AmazonLandingPage(IWebDriver webDriver)
         {
             _webDriver = webDriver;
-            builder = new Actions(_webDriver);
+            action = new Actions(_webDriver);
 ;
         }
 
         //Finding elements
 
-        private IWebElement hoveroverSignInElement => _webDriver.FindElement(By.Id("nav-link-accountList"));
+        private IWebElement hoveroverSignInElement => _webDriver.FindElement(By.XPath("//div[@id='nav-tools']/a[2]"));
 
         private IWebElement signInBtn => _webDriver.FindElement(By.XPath("//div[@id='nav-flyout-ya-signin']/a/span"));
-        private IWebElement email => _webDriver.FindElement(By.Name("email"));
-        private IWebElement continueButton => _webDriver.FindElement(By.Id("continue"));
-
-        private IWebElement errormessage => _webDriver.FindElement(By.XPath("//div[contains(text(),'Enter your email or mobile phone number')]"));
-
-
-
-        public void HoverOverSignIn()
+        
+        public LoginPage HoverOverSignIn()
         {
-            Actions act=builder.MoveToElement(hoveroverSignInElement);
+            Actions act = action.MoveToElement(hoveroverSignInElement);
             act.Build().Perform();
-            act.MoveToElement(signInBtn).Build().Perform();
-
-           
+            signInBtn.Click();
+            return new LoginPage(_webDriver);
         }
 
-        public void ClickSignInButton() => signInBtn.Click();
 
-
-        public void Clearemail() => email.Clear();
-
-        public void ClickonContinieButton() => continueButton.Click();
-
+       
         public void EnsureAmazonLandingPageIsOpenAndReset(String amazonHomePage)
         {
             if (_webDriver.Url != amazonHomePage)
@@ -63,20 +52,8 @@ namespace AmazonLandingPageOperations.Specs.PageObjects
             
         }
        
-        public String geterrormessage()
-        {
-            return errormessage.Text;
-        }
-        public string WaitForNonEmptyResult()
-        {
-            //Wait for the result to be not empty
-            return WaitUntil(
-                () =>
-                {
-                    return errormessage.GetAttribute("value");
-                },
-                result => !string.IsNullOrEmpty(result));
-        }
+       
+      
 
         /// <summary>
         /// Helper method to wait until the expected result is available on the UI

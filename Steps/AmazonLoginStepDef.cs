@@ -2,6 +2,7 @@
 using AmazonLandingPageOperations.Specs.PageObjects;
 using FluentAssertions;
 using TechTalk.SpecFlow;
+using TestProjectWithNunit.PageObjects;
 
 namespace AmazonLandingPageOperations.Specs.Steps
 {
@@ -10,6 +11,7 @@ namespace AmazonLandingPageOperations.Specs.Steps
     {
       
         private readonly AmazonLandingPage _amazonLandingPageObject;
+        private LoginPage _loginpg;
 
         public AmazonLoginStepDef(BrowserDriver browserDriver)
         {
@@ -22,29 +24,25 @@ namespace AmazonLandingPageOperations.Specs.Steps
             _amazonLandingPageObject.EnsureAmazonLandingPageIsOpenAndReset(url);
         }
 
-        [Given(@"hoverover the SignInOption")]
-        public void GivenHoveroverTheSignInOption()
+        [Given(@"hover over the SignInOption and click on the SignIn button")]
+        public void GivenHoverOverTheSignInOptionAndClickOnTheSignInButton()
         {
-            _amazonLandingPageObject.HoverOverSignIn();
+            _loginpg=_amazonLandingPageObject.HoverOverSignIn();
         }
 
-        [Given(@"click on the SignIn button")]
-        public void GivenClickOnTheSignInButton()
-        {
-            _amazonLandingPageObject.ClickSignInButton();
-        }
 
         [When(@"Clicked on the Continue without any data")]
         public void WhenClickedOnTheContinueWithoutAnyData()
         {
-            _amazonLandingPageObject.ClickonContinieButton();
+            _loginpg.Clearemail();
+            _loginpg.ClickonContinieButton();
         }
 
         [Then(@"error message should show '(.*)'")]
         public void ThenErrorMessageShouldShow(string text)
         {
 
-            var actualResult = _amazonLandingPageObject.geterrormessage();
+            var actualResult = _loginpg.geterrormessage();
 
             actualResult.Should().Be(text.ToString());
         }
